@@ -1,6 +1,5 @@
 const RVO = require('../index.js')
 const Simulator = RVO.Simulator
-const Vector2 = RVO.Vector2
 const RVOMath = RVO.RVOMath
 
 const simulator = new Simulator()
@@ -13,14 +12,16 @@ simulator.setAgentDefaults(
   600, // time horizon obstacles
   5, // agent radius
   10.0, // max speed
-  new RVO.Vector2(2, 2) // default velocity
+  2, // default velocity for x
+  2, // default velocity for y
 )
 
 for (let i = 0; i < 10; i++) {
   const angle = i * (2 * Math.PI) / 9
   const x = Math.cos(angle) * 200
   const y = Math.sin(angle) * 200
-  simulator.addAgent(new Vector2 (x, y))
+  simulator.addAgent()
+  simulator.setAgentPosition(i, x, y)
 }
 
 let goals = []
@@ -41,11 +42,12 @@ const step = () => {
   for (let i = 0; i < simulator.getNumAgents (); ++i) {
     if (RVOMath.absSq(simulator.getGoal(i).minus(simulator.getAgentPosition(i))) < RVOMath.RVO_EPSILON) {
       // Agent is within one radius of its goal, set preferred velocity to zero
-      simulator.setAgentPrefVelocity (i, new Vector2 (0.0, 0.0))
+      simulator.setAgentPrefVelocity(i, 0.0, 0.0)
       console.log('finish ' + i)
     } else {
       // Agent is far away from its goal, set preferred velocity as unit vector towards agent's goal.
-      simulator.setAgentPrefVelocity(i, RVOMath.normalize (simulator.getGoal(i).minus(simulator.getAgentPosition(i))))
+      let v = RVOMath.normalize(simulator.getGoal(i).minus(simulator.getAgentPosition(i)))
+      simulator.setAgentPrefVelocity(i, v.x, v.y)
     }
   }
 

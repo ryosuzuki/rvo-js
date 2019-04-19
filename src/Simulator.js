@@ -1,6 +1,7 @@
 const Agent = require('./Agent')
 const KdTree = require('./KdTree')
 const RVOMath = require('./RVOMath')
+const Vector2 = require('./Vector2')
 
 function Simulator() {
   this.agents = [] // Agent[]
@@ -26,8 +27,12 @@ function Simulator() {
     return this.timeStep
   }
 
-  this.setAgentPrefVelocity = function(i, velocity) {
-    this.agents[i].prefVelocity = velocity
+  this.setAgentPrefVelocity = function(i, vx, vy) {
+    this.agents[i].prefVelocity = new Vector2(vx, vy)
+  }
+
+  this.setAgentPosition = function(i, x, y) {
+    this.agents[i].position = new Vector2(x, y)
   }
 
   this.setTimeStep = function(timeStep) {
@@ -59,6 +64,8 @@ function Simulator() {
       throw new Error("no default agent")
     }
 
+    if (!position) position = new Vector2(0, 0)
+
     var agent = new Agent()
 
     agent.position = position
@@ -78,7 +85,7 @@ function Simulator() {
   }
 
   //  /** float */ neighborDist, /** int */ maxNeighbors, /** float */ timeHorizon, /** float */ timeHorizonObst, /** float */ radius, /** float*/ maxSpeed, /** Vector2 */ velocity)
-  this.setAgentDefaults = function(neighborDist, maxNeighbors, timeHorizon, timeHorizonObst, radius, maxSpeed, velocity) {
+  this.setAgentDefaults = function(neighborDist, maxNeighbors, timeHorizon, timeHorizonObst, radius, maxSpeed, velocityX, velocityY) {
     if (!this.defaultAgent) {
       this.defaultAgent = new Agent()
     }
@@ -89,7 +96,7 @@ function Simulator() {
     this.defaultAgent.radius = radius
     this.defaultAgent.timeHorizon = timeHorizon
     this.defaultAgent.timeHorizonObst = timeHorizonObst
-    this.defaultAgent.velocity = velocity
+    this.defaultAgent.velocity = new Vector2(velocityX, velocityY)
     this.defaultAgent.simulator = this
   }
 
