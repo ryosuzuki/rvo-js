@@ -35,6 +35,10 @@ function Simulator() {
     this.agents[i].position = new Vector2(x, y)
   }
 
+  this.setAgentGoal = function(i, x, y) {
+    this.goals[i] = new Vector2(x, y)
+  }
+
   this.setTimeStep = function(timeStep) {
     this.timeStep = timeStep
   }
@@ -80,6 +84,7 @@ function Simulator() {
 
     agent.id = this.agents.length
     this.agents.push(agent)
+    this.goals.push(position)
 
     return this.agents.length - 1
   }

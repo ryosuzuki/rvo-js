@@ -24,11 +24,10 @@ for (let i = 0; i < 10; i++) {
   simulator.setAgentPosition(i, x, y)
 }
 
-let goals = []
-for (let i = 0; i < simulator.getNumAgents (); ++i) {
-  goals.push(simulator.getAgentPosition(i).scale(-1))
+for (let i = 0; i < simulator.getNumAgents(); i++) {
+  let goal = simulator.getAgentPosition(i).scale(-1)
+  simulator.setAgentGoal(i, goal.x, goal.y)
 }
-simulator.addGoals(goals)
 
 let vertices = []
 simulator.addObstacle(vertices)
