@@ -1,0 +1,19 @@
+{
+  "name": "rvo-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryosuzuki/rvo-js.git"
+  },
+  "author": "Ryo Suzuki <ryosuzk@googlemail.com> (http://ryosuzuki.org/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryosuzuki/rvo-js/issues"
+  },
+  "homepage": "https://github.com/ryosuzuki/rvo-js#readme"
+}
